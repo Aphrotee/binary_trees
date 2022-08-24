@@ -20,7 +20,6 @@ void binary_tree_delete(binary_tree_t *tree)
 			current = current->left;
 		else if (current->right)
 			current = current->right;
-
 		else if(!(current->left) && !(current->right))
 		{
 			if (parent)
