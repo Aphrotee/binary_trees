@@ -9,6 +9,8 @@
  */
 int binary_tree_is_bst(const binary_tree_t *tree)
 {
+	binary_tree_t *par;
+
 	if (!tree)
 		return (0);
 	if (tree->left)
@@ -23,13 +25,23 @@ int binary_tree_is_bst(const binary_tree_t *tree)
 					{
 						if (tree->parent->right == tree)
 						{
-							if (tree->parent->n > tree->left->n || tree->parent->n > tree->right->n)
-								return (0);
+							par = tree->parent;
+							while (par)
+							{
+								if (par->n > tree->left->n || par->n > tree->right->n)
+									return (0);
+								par = par->parent;
+							}
 						}
 						else if (tree->parent->left == tree)
 						{
-							if (tree->parent->n < tree->left->n || tree->parent->n < tree->right->n)
-								return (0);
+							par = tree->parent;
+							while (par)
+							{
+								if (tree->parent->n < tree->left->n || tree->parent->n < tree->right->n)
+									return (0);
+								par = par->parent;
+							}
 						}
 					}
 					if (!binary_tree_is_bst(tree->left))
@@ -45,13 +57,23 @@ int binary_tree_is_bst(const binary_tree_t *tree)
 					{
 						if (tree->parent->right == tree)
 						{
-							if (tree->parent->n > tree->left->n)
-								return (0);
+							par = tree->parent;
+							while (par)
+							{
+								if (tree->parent->n > tree->left->n)
+									return (0);
+								par = par->parent;
+							}
 						}
 						else if (tree->parent->left == tree)
 						{
-							if (tree->parent->n < tree->left->n)
-								return (0);
+							par = tree->parent;
+							while (par)
+							{
+								if (tree->parent->n < tree->left->n)
+									return (0);
+								par = par->parent;
+							}
 						}
 					}
 				if (!binary_tree_is_bst(tree->left))
@@ -69,13 +91,23 @@ int binary_tree_is_bst(const binary_tree_t *tree)
 				{
 					if (tree->parent->right == tree)
 					{
-						if (tree->parent->n > tree->right->n)
-							return (0);
+						par = tree->parent;
+						while (par)
+						{
+							if (tree->parent->n > tree->right->n)
+								return (0);
+							par = par->parent;
+						}
 					}
 					else if (tree->parent->left == tree)
 					{
-						if (tree->parent->n < tree->right->n)
-							return (0);
+						par = tree->parent;
+						while (par)
+						{
+							if (tree->parent->n < tree->right->n)
+								return (0);
+							par = par->parent;
+						}
 					}
 				}
 			if (!binary_tree_is_bst(tree->right))
